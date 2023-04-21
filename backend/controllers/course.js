@@ -1,4 +1,5 @@
 const COURSE = require("../models/courseModel");
+const USER = require("../models/userModel");
 
 //! course post
 const createCourse = async (req, res) => {
@@ -44,7 +45,7 @@ const createCourse = async (req, res) => {
 //! get all course
 const getAllCourse = async (req, res) => {
   try {
-    const course = await COURSE.find({});
+    const course = await COURSE.find({}).populate('userEnrolled');
     return res.status(200).json({
       success: true,
       message: "Course get successfully",
@@ -64,7 +65,7 @@ const getActiveCourse = async (req, res) => {
   try {
     const course = await COURSE.find({
       courseStatus: "active",
-    });
+    }).froEach(x=>printjson(x));
     return res.status(200).json({
       success: true,
       message: "Active courses get successfully",
@@ -108,7 +109,6 @@ const updateCourse = async (req, res) => {
       courseDescription,
       coursePrice,
       courseStatus,
-      courseImage,
     } = req.body;
 
     const courseId = req.params.courseId;
@@ -153,15 +153,61 @@ const updateCourse = async (req, res) => {
 
 const courseDelete = async (req, res) => {
   try {
+
+    const { email , password } = req.body;
     const courseId = req.params.courseId;
+
+
+    const user = await USER.findOne({ email });
+    if(!user){
+      res.status(401).json({
+        success: false,
+        message: "User not found"
+      })
+    }
+
+    const isPassMatch = user.isPasswordMatch(password);
+
+    if (!isPassMatch) {
+      return res
+      .status(401)
+      .json({ success: false, message: "Incorrect password" });
+    }
+
+
+
     const course = await COURSE.findById(courseId);
+
+
     if (!course) {
       return res
-        .status(404)
+        .status(401)
         .json({ success: false, message: "Course not found" });
     }
 
+
+    for(let i=0;i<course.userEnrolled.length;i++) {
+
+      const userTookCourse = await USER.findById(course.userEnrolled[i]);
+
+      if(userTookCourse) {
+
+        const index = uerTookCourse.courseEnrolled.indexOf(courseId);
+
+        if (index > -1) {
+          uerTookCourse.courseEnrolled.splice(index, 1);
+          await uerTookCourse.save();
+        }
+
+      }
+    }
+
     await course.remove();
+
+    return res.status(200).json({
+      success: true,
+      message: "Course deleted successfully",
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -170,4 +216,11 @@ const courseDelete = async (req, res) => {
   }
 };
 
-module.exports = createCourse;
+module.exports = {
+  createCourse,
+  getAllCourse,
+  getActiveCourse,
+  getInactiveCourse,
+  updateCourse,
+  courseDelete
+};
