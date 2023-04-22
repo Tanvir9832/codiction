@@ -8,6 +8,7 @@ const app = express();
 
 const userRouter = require("./routers/user");
 const courseRouter = require("./routers/course");
+const adminRouter = require("./routers/admin");
 
 //! donenv configuration
 
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/v1", userRouter);
 app.use("/api/v2", courseRouter);
+app.use("/api/v3", adminRouter);
 
 app.get("/", (req, res) => {
   res.send("HELLO");

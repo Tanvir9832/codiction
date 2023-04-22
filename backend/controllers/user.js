@@ -1,6 +1,9 @@
 const USER = require("../models/userModel");
 const COURSE = require("../models/courseModel");
 
+
+
+
 //! register user
 
 const register = async (req, res) => {
@@ -34,6 +37,9 @@ const register = async (req, res) => {
   }
 };
 
+
+
+
 //! login user
 
 const login = async (req, res) => {
@@ -63,6 +69,8 @@ const login = async (req, res) => {
   }
 };
 
+
+
 //! course registration
 
 const courseRegistration = async (req, res) => {
@@ -77,9 +85,22 @@ const courseRegistration = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Course Not Found" });
     }
+    let courseTakenAlready = false;
+    for (let i = 0; i < course.userEnrolled.length; i++) {
+      if (course.userEnrolled[i].toString() === req.id.toString()) {
+        courseTakenAlready = true;
+        break;
+      }
+    }
 
-    course.userEnrolled.push(req.id);
-    user.couseEnrolled.push(courseId);
+    if (!courseTakenAlready) {
+      course.userEnrolled.push(req.id);
+      user.courseEnrolled.push(courseId);
+    } else {
+      return res
+        .status(400)
+        .json({ success: false, message: "Course Already Registered" });
+    }
 
     await user.save();
     await course.save();
@@ -90,7 +111,7 @@ const courseRegistration = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
-      success: true,
+      success: false,
       message: "Course Registration Failed",
     });
   }

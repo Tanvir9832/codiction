@@ -1,7 +1,11 @@
 const COURSE = require("../models/courseModel");
 const USER = require("../models/userModel");
 
-//! course post
+
+
+
+
+//! CREATE COURSE
 const createCourse = async (req, res) => {
   try {
     const {
@@ -10,8 +14,12 @@ const createCourse = async (req, res) => {
       courseDescription,
       coursePrice,
       courseStatus,
-      courseImage,
+      numberOfClass,
+      lectureSheet,
+      numberOfPracticeProblem,
+      courseImage
     } = req.body;
+
 
     let image = {
       public_id: "public_id",
@@ -23,7 +31,10 @@ const createCourse = async (req, res) => {
       courseCode,
       courseDescription,
       coursePrice,
+      numberOfClass,
       courseStatus,
+      lectureSheet,
+      numberOfPracticeProblem,
       courseImage: image,
     };
 
@@ -34,24 +45,26 @@ const createCourse = async (req, res) => {
       data: course,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       message: "Course post creation failed",
     });
   }
 };
 
-//! course get start
 
-//! get all course
+
+//! GET ALL COURSE
 const getAllCourse = async (req, res) => {
   try {
-    const course = await COURSE.find({}).populate('userEnrolled');
+    const course = await COURSE.find().limit(300).populate('userEnrolled');
     return res.status(200).json({
       success: true,
       message: "Course get successfully",
       data: course,
     });
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       success: false,
       message: "Course get failed",
@@ -59,13 +72,13 @@ const getAllCourse = async (req, res) => {
   }
 };
 
-//! get active course
 
+//! GET ACTIVE COURSE
 const getActiveCourse = async (req, res) => {
   try {
     const course = await COURSE.find({
       courseStatus: "active",
-    }).froEach(x=>printjson(x));
+    }).limit(300).populate('userEnrolled')
     return res.status(200).json({
       success: true,
       message: "Active courses get successfully",
@@ -79,13 +92,13 @@ const getActiveCourse = async (req, res) => {
   }
 };
 
-//! get inactive course
 
+//! GET INACTIVE COURSE
 const getInactiveCourse = async (req, res) => {
   try {
     const course = await COURSE.find({
       courseStatus: "inactive",
-    });
+    }).limit(300).populate('userEnrolled');
     return res.status(200).json({
       success: true,
       message: "Inactive courses get successfully",
@@ -99,8 +112,10 @@ const getInactiveCourse = async (req, res) => {
   }
 };
 
-//! course update
 
+
+
+//! COURSE UPDATE
 const updateCourse = async (req, res) => {
   try {
     const {
@@ -109,9 +124,13 @@ const updateCourse = async (req, res) => {
       courseDescription,
       coursePrice,
       courseStatus,
+      numberOfClass,
+      lectureSheet,
+      numberOfPracticeProblem
     } = req.body;
 
     const courseId = req.params.courseId;
+
     const course = await COURSE.findById(courseId);
 
     if (!course) {
@@ -120,6 +139,7 @@ const updateCourse = async (req, res) => {
         .json({ success: false, message: "Course not found" });
     }
 
+    //! CONDITION FOR WHICH DATA ADMIN WANTS TO UPDATE
     if (courseStatus) {
       course.courseStatus = courseStatus;
     }
@@ -135,6 +155,15 @@ const updateCourse = async (req, res) => {
     if (coursePrice) {
       course.coursePrice = coursePrice;
     }
+    if(numberOfClass){
+      course.numberOfClass = numberOfClass;
+    }
+    if(lectureSheet){
+      course.lectureSheet = lectureSheet;
+    }
+    if(numberOfPracticeProblem){
+      course.numberOfPracticeProblem = numberOfPracticeProblem;
+    }
 
     await course.save();
 
@@ -149,36 +178,46 @@ const updateCourse = async (req, res) => {
   }
 };
 
-//! course delete
 
+
+//! COURSE DELETE
 const courseDelete = async (req, res) => {
   try {
 
+    //! DATA FROM USER
     const { email , password } = req.body;
+
+
+    //! COURSE ID
     const courseId = req.params.courseId;
 
 
-    const user = await USER.findOne({ email });
+    //! FIND USER
+    const user = await USER.findOne({ email }).select('password');
+
+    //!USER CHECK
     if(!user){
-      res.status(401).json({
+      return res.status(401).json({
         success: false,
         message: "User not found"
       })
     }
 
-    const isPassMatch = user.isPasswordMatch(password);
+    //! PASSWORD MATCH CHECK
+    const isPassMatch = await user.isPasswordMatch(password);
 
+
+    //! IF PASSWORD FALSE
     if (!isPassMatch) {
       return res
       .status(401)
       .json({ success: false, message: "Incorrect password" });
     }
 
-
-
+    //! COURSE CHECK
     const course = await COURSE.findById(courseId);
 
-
+    //! COURSE CHECK
     if (!course) {
       return res
         .status(401)
@@ -186,29 +225,31 @@ const courseDelete = async (req, res) => {
     }
 
 
+    //! DELETE COUSER FROM ALL USERS
     for(let i=0;i<course.userEnrolled.length;i++) {
 
       const userTookCourse = await USER.findById(course.userEnrolled[i]);
 
       if(userTookCourse) {
 
-        const index = uerTookCourse.courseEnrolled.indexOf(courseId);
+        const index = userTookCourse.courseEnrolled.indexOf(courseId);
 
         if (index > -1) {
-          uerTookCourse.courseEnrolled.splice(index, 1);
-          await uerTookCourse.save();
+          userTookCourse.courseEnrolled.splice(index, 1);
+          await userTookCourse.save();
         }
 
       }
     }
 
-    await course.remove();
+    await COURSE.findByIdAndDelete(courseId);
 
     return res.status(200).json({
       success: true,
       message: "Course deleted successfully",
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: "Course delete failed",

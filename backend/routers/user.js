@@ -6,10 +6,6 @@ const userRouter = express.Router();
 
 userRouter.post("/register", register);
 userRouter.post("/login", login);
-userRouter.post(
-  "/course/registration/:courseId",
-  authentication,
-  courseRegistration
-);
+userRouter.get("/course/registration/:courseId", authentication,courseRegistration);
 
 module.exports = userRouter;

@@ -2,33 +2,44 @@ const mongoose = require("mongoose");
 
 const courseModel = new mongoose.Schema(
   {
-    courseName: {
+    courseName : {
       type: String,
       required: [true, "Enter a course name"],
     },
-    courseCode: {
+    courseCode : {
       type: String,
       required: [true, "Enter a course code"],
     },
-    courseDescription: {
+    courseDescription : {
       type: String,
       required: [true, "Enter a course description"],
     },
-    courseImage: {
+    courseImage : {
       public_id: String,
       url: String,
     },
-    coursePrice: {
+    coursePrice : {
       type: Number,
       default: 0,
-      required: true,
     },
-    courseStatus: {
+    numberOfClass : {
+      type: Number,
+      default: 0,
+    },
+    lectureSheet : {
+       type : Number,
+       default: 0,
+    },
+    numberOfPracticeProblem : {
+      type : Number,
+      default: 0,
+    },
+    courseStatus : {
       type: String,
       enum: ["active", "inactive"],
-      required: true,
+      default: "inactive",
     },
-    userEnrolled: [
+    userEnrolled : [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
