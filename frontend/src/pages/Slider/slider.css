@@ -1,0 +1,19 @@
+img{
+    max-width: 1200px;
+    height: 400px;
+}
+.carousel{
+    margin-top: 20px;
+}
+
+@media (max-width: 720px) {
+    img{
+        height: 300px;
+    }
+}
+
+@media (max-width: 450px) {
+    img{
+        height: 200px;
+    }
+}

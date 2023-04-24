@@ -30,11 +30,10 @@ const getAllUsers = async(req,res)=>{
     try {
         let limit, page;
 
-        if(req.query.limit){
-         limit = req.query.limit;
-         page = req.query.page
-        }
-        const users = await USER.find().skip(page*limit).limit(limit).populate('courseEnrolled');
+        if(!req.query.limit)limit = 10;
+        if(!req.query.page) page = 1;
+        let skip = (page-1)*limit ;
+        const users = await USER.find().skip(skip).limit(limit).populate('courseEnrolled');
         return res.status(200).json({
             success : true,
             users
