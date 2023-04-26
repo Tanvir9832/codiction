@@ -1,0 +1,28 @@
+.course_first{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #ffffff;
+    max-width: 1200px;
+    border-radius: 40px;
+    margin: 20px;
+    align-items: center;
+    justify-items: center;
+}
+.course_first_img>img{
+    max-width: 300px;
+    max-height: 300px;
+}
+.course_first_tag{
+    text-align: center;
+    padding: 20px;
+}
+
+@media (max-width:800px) {
+    .course_first{
+        grid-template-columns: 1fr;
+    }
+    .course_first_img{
+        grid-row: 1/2 ;
+        padding: 20px 10px 0px 10px;
+    }
+}

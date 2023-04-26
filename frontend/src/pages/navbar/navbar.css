@@ -44,7 +44,7 @@
         height: auto;
     }
 }
-@media (max-width : 520px) {
+@media (max-width : 666px) {
     .Navbar_logo{
         max-width :70px;
         height: auto;

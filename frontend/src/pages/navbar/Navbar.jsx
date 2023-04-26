@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <AppBar
       className="navbar"
-      sx={{ maxWidth: "1200px", backgroundColor: "#001a35" }}
+      sx={{ backgroundColor: "#001a35" }}
       position="sticky"
     >
       
@@ -20,10 +20,13 @@ const Navbar = () => {
                       </div>
                       <div className="navbar_first_inside">
                             <Link className="link" to="/">
-                              Home
+                              HOME
                             </Link>
                             <Link className="link" to="/course">
-                              Course
+                              COURSE
+                            </Link>
+                            <Link className="link" to="/dashboard">
+                              DASHBOARD
                             </Link>
                       </div>
                 </div>
@@ -31,13 +34,13 @@ const Navbar = () => {
 
                 <div className="navbar_second">
                             <Link className="link" to="/login">
-                              Login
+                              LOGIN
                             </Link>
                             <Link className="link" to="/register">
-                              Register
+                              REGISTER
                             </Link>
                             <Link className="link" to="/logout">
-                              Logout
+                              LOG OUT
                             </Link>
                 </div>
             </div>

@@ -76,7 +76,7 @@
 @media screen and (max-width: 768px) {
     .footer_first{
         grid-column: 1/9;
-        margin: 0px 50px;
+        margin: 0px 45px;
     }
     .footer_second{
         grid-column: 1/9;

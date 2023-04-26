@@ -10,7 +10,6 @@ const createCourse = async (req, res) => {
   try {
     const {
       courseName,
-      courseCode,
       courseDescription,
       coursePrice,
       courseStatus,
@@ -28,7 +27,6 @@ const createCourse = async (req, res) => {
 
     let postCourse = {
       courseName,
-      courseCode,
       courseDescription,
       coursePrice,
       numberOfClass,
@@ -120,7 +118,6 @@ const updateCourse = async (req, res) => {
   try {
     const {
       courseName,
-      courseCode,
       courseDescription,
       coursePrice,
       courseStatus,
@@ -145,9 +142,6 @@ const updateCourse = async (req, res) => {
     }
     if (courseName) {
       course.courseName = courseName;
-    }
-    if (courseCode) {
-      course.courseCode = courseCode;
     }
     if (courseDescription) {
       course.courseDescription = courseDescription;
