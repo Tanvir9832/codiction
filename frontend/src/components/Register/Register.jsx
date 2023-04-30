@@ -1,15 +1,21 @@
 import "./register.css";
 import logo from "../../../public/Logo.png";
+import { useState } from "react";
 const Register = () => {
+  const [data,setData] = useState({username : "" , email : "" , password : "" ,phoneNumber : ""});
+  const handleRegisterSubmit =(e)=>{
+    e.preventDefault();
+    console.log(data)
+  }
   return (
     <div className="register">
-      <form className="register_form">
+      <form onSubmit={handleRegisterSubmit} className="register_form">
         <img className="form_img" src={logo} />
         <h2 className="form_h2">REGISTER</h2>
-        <input type="text" placeholder="Name..." required />
-        <input type="tel" pattern="[0-9]{11}" placeholder="01576602113" required />
-        <input type="email" placeholder="Email..." required />
-        <input type="password" placeholder="Password..." required />
+        <input value={data.username} name="username" onChange={(e)=>setData({...data , [e.target.name] : e.target.value})} type="text" placeholder="Name..." required />
+        <input value={data.phoneNumber} name="phoneNumber" onChange={(e)=>setData({...data , [e.target.name] : e.target.value})} type="tel" pattern="[0-9]{11}" placeholder="01576602113" required />
+        <input value={data.email} name="email" onChange={(e)=>setData({...data , [e.target.name] : e.target.value})} type="email" placeholder="Email..." required />
+        <input value={data.password} name="password" onChange={(e)=>setData({...data , [e.target.name] : e.target.value})} type="password" placeholder="Password..." required />
         <input type="submit" />
       </form>
     </div>

@@ -7,8 +7,8 @@
     align-items: center;
     background: rgba(0, 26, 53 ,1);
     color: #f2702f;
-    height: 50vh;
-    padding: 30px 0px;
+    height: 70vh;
+    padding: 20px 0px;
 }
 
 #courseDes{
@@ -29,4 +29,12 @@
 
 .courseStatus{
     display: flex;
+}
+
+input[type="file"]::-webkit-file-upload-button{
+    background: #f2702f;
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
 }
