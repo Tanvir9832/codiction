@@ -1,15 +1,16 @@
 .HomeMid{
-    max-width: 1200px;
+    max-width: 1300px;
     background: rgba(0, 26, 53 ,1);
     min-height: 300px;
+    margin-top: 50px;
 
 }
 .HomeMid_first,.HomeMid_second,.HomeMid_third{
     max-width: 1200px;
-    background: #f2702f;
+    background: white; 
     min-height: 300px;
     display: grid;
-    color: #ffffff;
+    color: #000;
     grid-template-columns: 1fr 1fr;
     padding: 50px;
     align-items: center;

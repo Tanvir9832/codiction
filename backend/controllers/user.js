@@ -9,7 +9,7 @@ const COURSE = require("../models/courseModel");
 const register = async (req, res) => {
   try {
     const { username, password, email, phoneNumber } = req.body;
-    console.log(username, password, email, phoneNumber);
+    // console.log(username, password, email, phoneNumber);
     if (!username || !password || !email) {
       return res
         .status(400)
@@ -20,7 +20,7 @@ const register = async (req, res) => {
 
     if (user) {
       return res
-        .status(400)
+        .status(409)
         .json({ success: false, message: "User Already Exists" });
     }
 
@@ -32,7 +32,6 @@ const register = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Registration Successfull" });
   } catch (error) {
-    console.log(error.message);
     res.status(500).json({ success: false, message: "Registration Failed" });
   }
 };
@@ -45,13 +44,13 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await USER.findOne({ email: email }).select("password");
+
+    const user = await USER.findOne({ email: email }).select("password role");
     if (!user) {
       return res
         .status(400)
         .json({ success: false, message: "Please Sign In First" });
     }
-
     const isMatch = await user.isPasswordMatch(password);
     if (!isMatch)
       return res
@@ -62,9 +61,8 @@ const login = async (req, res) => {
 
     res
       .status(200)
-      .json({ success: true, message: "Login Successfull", token });
+      .json({ success: true, message: "Login Successfull",user, token });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ success: false, message: "Login Failed" });
   }
 };
@@ -117,8 +115,25 @@ const courseRegistration = async (req, res) => {
   }
 };
 
+//! checkout user login and userrole
+
+const chechOut = async (req , res )=>{
+  try {
+
+    const user = await USER.findById(req.id);
+
+    res.status(200).json({ success: true, message:"you are logged in", user });
+
+  } catch (error) {
+    res.status(500).json({ success: false, message:"you are not logged in"});
+  }
+}
+
+
+
 module.exports = {
   register,
   login,
   courseRegistration,
+  chechOut
 };

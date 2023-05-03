@@ -1,12 +1,28 @@
 import "./register.css";
 import logo from "../../../public/Logo.png";
 import { useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { userResister } from "../../Reducers/userSlice";
+import { useNavigate } from "react-router-dom";
+
 const Register = () => {
   const [data,setData] = useState({username : "" , email : "" , password : "" ,phoneNumber : ""});
-  const handleRegisterSubmit =(e)=>{
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isError } = useSelector(state=>state.users);
+
+  const handleRegisterSubmit =async(e)=>{
     e.preventDefault();
-    console.log(data)
+    dispatch(userResister(data));
+    setData({username : "" , email : "" , password : "" ,phoneNumber : ""});
+    if(!isError){
+      navigate("/login");
+    }
+
   }
+
   return (
     <div className="register">
       <form onSubmit={handleRegisterSubmit} className="register_form">

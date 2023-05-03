@@ -7,8 +7,9 @@
     background:rgba(0, 26, 53 ,1);
     justify-content: center;
     align-items: end;
-    margin-top: 20px;
+    margin-top: 5px;
     border-radius: 25px;
+    padding: 20px;
     
 }
 .adminbar_link{

@@ -2,6 +2,7 @@
 .footer{
     display: grid;
     grid-template-columns: repeat(12,1fr);
+    margin-top: 50px;
 }
 
 .footer_first{
@@ -66,6 +67,7 @@
 .credit{
     color: white;
     text-align: center;
+    padding: 20px;
 }
 .icons{
     display: none;

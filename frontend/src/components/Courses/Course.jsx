@@ -10,7 +10,9 @@ const Course = () => {
     <div className="course">
       <Navbar />
       <CourseFirst />
+      <div style={{ color: "white"  , textAlign : "center",fontWeight :"bolder" ,marginTop : "150px" ,letterSpacing : "2px" }}>RUNNING   COURSES</div>
       <CourseScrollFirst />
+      <div style={{ color: "white"  , textAlign : "center",fontWeight :"bolder" ,marginTop : "150px" ,letterSpacing : "2px" }}>UPCOMMING   COURSES</div>
       <CourseScrollSecond />
       <Footer />
     </div>

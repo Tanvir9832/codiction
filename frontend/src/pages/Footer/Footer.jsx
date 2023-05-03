@@ -113,7 +113,7 @@ const Footer = () => {
           <FacebookRoundedIcon />
         </a>
       </div>
-      <p className="credit"> Created by Md Tanvir Alam Anik. &copy; 2023</p>
+      <p className="credit"> Created by Md Tanvir Alam Anik <br/>   tanvir9832@gmail.com  &copy; 2023 </p>
     </div>
   );
 };

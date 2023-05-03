@@ -1,6 +1,9 @@
 img{
-    max-width: 1200px;
+    width: 100%;
     height: 400px;
+    display: flex;
+    align-self: center;
+    color: #fff;
 }
 .carousel{
     margin-top: 20px;

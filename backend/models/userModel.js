@@ -8,29 +8,29 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter a username"],
     },
-    email: {
+    email : {
       type: String,
       required: [true, "Please enter an email"],
     },
-    password: {
+    password : {
       type: String,
       min: 8,
       required: [true, "Please enter a password"],
       select: false,
     },
 
-    phoneNumber: {
+    phoneNumber : {
       type: String,
       min: 11,
       max: 14,
       required: [true, "Please enter a phone number"],
     },
-    role: {
+    role : {
       type: String,
       enum: ["user", "admin"],
       default: "user",
     },
-    courseEnrolled: [
+    courseEnrolled : [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Course",

@@ -1,5 +1,6 @@
 const COURSE = require("../models/courseModel");
 const USER = require("../models/userModel");
+const cloudinary = require("cloudinary");
 
 
 
@@ -19,10 +20,16 @@ const createCourse = async (req, res) => {
       courseImage
     } = req.body;
 
+    
+    const codictionCloude =await cloudinary.v2.uploader.upload(courseImage , {
+      folder : "codictionCoursePictures"
+    })
+
+
 
     let image = {
-      public_id: "public_id",
-      url: "secure_url",
+      public_id: codictionCloude.public_id,
+      url: codictionCloude.secure_url,
     };
 
     let postCourse = {
@@ -43,7 +50,6 @@ const createCourse = async (req, res) => {
       data: course,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       message: "Course post creation failed",
     });
@@ -243,7 +249,6 @@ const courseDelete = async (req, res) => {
       message: "Course deleted successfully",
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: "Course delete failed",
@@ -251,11 +256,39 @@ const courseDelete = async (req, res) => {
   }
 };
 
+
+
+//!GET ONE COURSE
+const getOneCourse = async(req,res)=>{
+  try {
+    const courseId = req.params.courseId;
+    const course = await COURSE.findById(courseId);
+
+    if(!course) {
+      return res.status(404).json({success : false, message: "Course not found"});
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Course get successfully",
+      course
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Course get failed",
+    });
+  }
+}
+
+
+
+
 module.exports = {
   createCourse,
   getAllCourse,
   getActiveCourse,
   getInactiveCourse,
   updateCourse,
-  courseDelete
+  courseDelete,
+  getOneCourse
 };

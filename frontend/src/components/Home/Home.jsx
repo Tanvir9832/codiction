@@ -1,3 +1,4 @@
+import CourseScrollFirst from "../../pages/CourseScrollFirst/CourseScrollFirst";
 import Footer from "../../pages/Footer/Footer";
 import HomeMid from "../../pages/HomeMid/HomeMid";
 import Slider from "../../pages/Slider/Slider";
@@ -10,6 +11,8 @@ const Home = () => {
 
         <Navbar />
         <Slider />
+        <div style={{ color: "white"  , textAlign : "center",fontWeight :"bolder" ,marginTop : "150px" ,letterSpacing : "2px" }}>OUR COURSES</div>
+        <CourseScrollFirst />
         <HomeMid/>
         <Footer />
     </div>

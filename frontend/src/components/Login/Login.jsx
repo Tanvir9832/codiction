@@ -1,12 +1,24 @@
 import "./login.css";
 import logo from "../../../public/Logo.png";
 import { useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { userLogin } from "../../Reducers/userSlice";
+import {useNavigate} from "react-router-dom"
 
 const Login = () => {
   const [data,setData] = useState({email : "" , password : "" });
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const {isError} = useSelector(state=>state.users)
   const handleLoginSubmit =(e)=>{
     e.preventDefault();
-    console.log(data);
+    dispatch(userLogin(data));
+    setData({ email : "" , password : "" });
+    if(!isError){
+      navigate('/');
+    }
   }
   return (
     <div className="login">
