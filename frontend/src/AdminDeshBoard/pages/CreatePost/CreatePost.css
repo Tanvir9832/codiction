@@ -29,6 +29,7 @@
 
 .courseStatus{
     display: flex;
+    gap: 15px;
 }
 
 input[type="file"]::-webkit-file-upload-button{

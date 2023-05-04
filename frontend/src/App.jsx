@@ -13,7 +13,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { userOnload } from "./Reducers/userSlice";
-import SingleCourse from "./pages/singleCourse/SingleCourse";
+import SingleCourse from "./components/singleCourse/SingleCourse";
+
 
 
 function App() {

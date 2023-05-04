@@ -18,10 +18,12 @@
     text-align: center;
     align-self: center;
     padding: 7px 30px;
+    margin-top: 10px;
 }
 
 .course_name{
     color: #fff;
+    margin-top: 5px;
     margin-bottom: 10px;
     align-self: center;
 }

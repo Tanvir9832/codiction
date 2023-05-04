@@ -38,6 +38,11 @@ const CreatePost = () => {
       <Navbar />
       <form onSubmit={submitHandler} className="createPost">
         <h1 className="createPost_heading">UPLOAD NEW COURSE</h1>
+        {
+          data.courseImage && (
+            <img style={{width : "150px" ,height : "150px"}} src={data.courseImage} />
+          )
+        }
         <input
           type="file"
           accept="image/*"
@@ -128,8 +133,8 @@ const CreatePost = () => {
               setData({ ...data, [e.target.name]: e.target.value })
             }
           />
-          <label> Active </label>
-          {/* for="active" */}
+          <label for="active" > Active </label>
+         
 
           <input
             type="radio"
@@ -141,8 +146,8 @@ const CreatePost = () => {
             }
 
           />
-          <label> Inactive</label>
-          {/* for="inactive" */}
+          <label for="inactive"> Inactive</label>
+          
         </div>
         <input type="submit" />
       </form>

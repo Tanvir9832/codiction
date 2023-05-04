@@ -39,7 +39,7 @@ const CourseScrollSecond = () => {
               <img className="course_img" src={course?.courseImage?.url} alt="img" />
               <h3 className="course_name">Course : {course?.courseName}</h3>
               <p className="course_price">{`price : ${course?.coursePrice > 0  ? course?.coursePrice +" ৳" : "free"  }`}</p>
-              <Link to="/single/course" className="course_btn">COURSE DETAILS</Link>
+              <Link to={`/single/course/${course?._id}`} className="course_btn">COURSE DETAILS</Link>
             </div>
           ))}
         </Carousel>

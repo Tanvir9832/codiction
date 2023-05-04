@@ -1,0 +1,17 @@
+.singleCourseComponents{
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+}
+
+.singleCourse{
+    max-width: 1300px;
+    margin: 0 auto;
+    background: rgba(0, 26, 53 ,1);
+    height: 100vh;
+}
+
+@media (max-width:480px) {
+    .singleCourseComponents{
+        gap : 10px
+    }
+}

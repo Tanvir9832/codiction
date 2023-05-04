@@ -1,0 +1,26 @@
+
+.singlecoursesecond , .courseName_Des{
+    display: flex;
+    flex-direction: column;
+    gap : 20px;
+    color : white;
+    margin: 60px;
+    letter-spacing: 1px;
+    margin-left: 0;
+    
+}
+
+.courseName_Des{
+     margin: 0;
+}
+
+.courseName{
+    color: #ff5635;
+}
+
+
+@media (max-width: 650px) {
+    .singlecoursesecond{
+        margin-top: 20px;
+    }
+}
