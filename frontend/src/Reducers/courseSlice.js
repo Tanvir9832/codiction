@@ -10,13 +10,31 @@ export const coursePost = createAsyncThunk("course/coursePost",async(data,{rejec
                 authorization : `Bearer ${localStorage.getItem('codictionToken')}`,
             }
         });
-        console.log(res);
+
         return res.data;
     } catch (error) {
-        console.log(error);
         return rejectWithValue(error?.response?.data?.message);
     }
 });
+
+
+
+export const courseEnroll = createAsyncThunk("course/courseEnroll",async(id,{rejectWithValue})=>{
+    try {
+        const res = await axios.get(`api/v1/course/registration/${id}`, {
+            headers :{
+                authorization : `Bearer ${localStorage.getItem('codictionToken')}`,
+            }
+        })
+
+        return res.data;
+    } catch (error) {
+
+        rejectWithValue(error?.response?.data?.message);
+    }
+})
+
+
 
 
 const initialState = {
@@ -48,6 +66,31 @@ const courseSlice = createSlice({
                 toast.success(action.payload.message,toastDesign);
             })
             .addCase(coursePost.rejected,(state ,action)=>{
+                state.isLoading = false;
+                state.isError = true;
+                state.data = [];
+                state.error = action.payload;
+
+                //! toast 
+                toast.error(action.payload,toastDesign);
+            })
+            .addCase(courseEnroll.pending,(state)=>{
+                state.isLoading = true;
+                state.isError = false;
+                state.data = [];
+                state.error = null;
+            })
+            .addCase(courseEnroll.fulfilled,(state ,action)=>{
+                state.isLoading = false;
+                state.isError = false;
+                state.data = action.payload;
+                state.error = null;
+
+                //! toast 
+                toast.success(action.payload.message,toastDesign);
+            })
+            .addCase(courseEnroll.rejected,(state ,action)=>{
+
                 state.isLoading = false;
                 state.isError = true;
                 state.data = [];

@@ -5,7 +5,6 @@ const SingleCourseSecond = () => {
 
 
   const { data , isLoading ,isError , error    } = useSelector(state=>state.getAllCourses);
-  console.log(data);
 
   if(isLoading){
     return(

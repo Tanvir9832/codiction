@@ -1,18 +1,19 @@
 
-import { useSelector} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import "./SingleCourseFirst.css"
 import { useEffect, useState } from "react";
+import { courseEnroll } from "../../Reducers/courseSlice";
 
 
 
-const SingleCourseFirst = () => {
+const SingleCourseFirst = ({id}) => {
 
 const [isEnrolled , setIsEnrolled] = useState(false);
 
 
-const { data , isLoading ,isError , error , userEnrolled   } = useSelector(state=>state.getAllCourses);
+const { data , isLoading ,isError , error  } = useSelector(state=>state.getAllCourses);
 const myData = useSelector(state=>state.users);
-console.log(data);
+
 
 
 
@@ -22,14 +23,16 @@ const coursePrice = data?.course?.coursePrice;
 const lectureSheet = data?.course?.lectureSheet;
 const numberOfClass = data?.course?.numberOfClass;
 const numberOfPracticeProblem =data?.course?.numberOfPracticeProblem;
+const userEnrolled = data?.course?.userEnrolled;
 
+
+const dispatch = useDispatch();
 
 
 const handleEnrolledFunction =()=>{
-  console.log("first")
+  dispatch(courseEnroll(id));
   setIsEnrolled(true);
 }
-
 
 useEffect(()=>{
   userEnrolled && userEnrolled.forEach((id)=>{
@@ -38,8 +41,7 @@ useEffect(()=>{
       setIsEnrolled(true);
     }
   })
-},[])
-
+},[userEnrolled , myData?.data?.user?._id , id])
 
 
 if(isLoading){
