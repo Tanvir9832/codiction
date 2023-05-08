@@ -3,7 +3,7 @@ import logo from "../../../public/Logo.png";
 import { useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { userResister } from "../../Reducers/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [data,setData] = useState({username : "" , email : "" , password : "" ,phoneNumber : ""});
@@ -33,6 +33,7 @@ const Register = () => {
         <input value={data.email} name="email" onChange={(e)=>setData({...data , [e.target.name] : e.target.value})} type="email" placeholder="Email..." required />
         <input value={data.password} name="password" onChange={(e)=>setData({...data , [e.target.name] : e.target.value})} type="password" placeholder="Password..." required />
         <input type="submit" />
+        <Link className="register_link" to="/login" >Go to login page</Link>
       </form>
     </div>
   )

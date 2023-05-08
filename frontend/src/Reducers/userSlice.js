@@ -33,7 +33,6 @@ export const userResister = createAsyncThunk("users/userRegister",async(data ,{r
 export const userLogin = createAsyncThunk("users/userLogin",async(data ,{rejectWithValue})=>{
     try {
         const res = await axios.post("api/v1/login",data);
-        console.log(res.data);
         return res.data;
     } catch (error) {
         return rejectWithValue(error?.response?.data?.message);
@@ -113,12 +112,14 @@ const usersSlice = createSlice({
 
             })
             .addCase(userLogin.fulfilled , (state , action)=>{
-
                 state.isLoading = false;
                 state.isError = false;
                 state.error = null;
                 state.data = action.payload;
                 state.isLogin = true ;
+                if(action?.payload?.user?.role === "admin"){
+                    state.isAdmin = true;
+                }
 
                 //!addToken 
                 localStorage.setItem("codictionToken", action.payload?.token);
@@ -129,11 +130,13 @@ const usersSlice = createSlice({
 
             })
             .addCase(userLogin.rejected , (state , action)=>{
+                console.log(action);
                 state.isLoading = false;
                 state.isError = true;
                 state.error = action.payload;
                 state.data = [];
                 state.isLogin = false ;
+                
                 //!Toast
                 toast.error(action.payload,toastDesign);
             })
@@ -155,7 +158,7 @@ const usersSlice = createSlice({
                 state.error = null;
                 state.data = action.payload;
                 state.isLogin = true ;
-                if(action.payload.user.role === "admin"){
+                if(action?.payload?.user?.role === "admin"){
                     state.isAdmin = true;
                 }
 
@@ -166,6 +169,7 @@ const usersSlice = createSlice({
                 state.error = action.payload;
                 state.data = [];
                 state.isLogin = false ;
+                state.isAdmin = false;
 
             })
 

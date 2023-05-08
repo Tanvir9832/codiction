@@ -1,9 +1,9 @@
 import "./login.css";
 import logo from "../../../public/Logo.png";
 import { useState } from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import { userLogin } from "../../Reducers/userSlice";
-import {useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 
 const Login = () => {
   const [data,setData] = useState({email : "" , password : "" });
@@ -11,12 +11,12 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {isError} = useSelector(state=>state.users)
-  const handleLoginSubmit =(e)=>{
+  const handleLoginSubmit =async(e)=>{
     e.preventDefault();
-    dispatch(userLogin(data));
+    const fromUserLogin = await dispatch(userLogin(data));
     setData({ email : "" , password : "" });
-    if(!isError){
+
+    if(fromUserLogin?.payload?.success){
       navigate('/');
     }
   }
@@ -28,6 +28,10 @@ const Login = () => {
         <input value={data.email} name="email" onChange={(e)=>setData({...data, [e.target.name] : e.target.value})} type="email" placeholder="Email..." required />
         <input value={data.password} name="password" onChange={(e)=>setData({...data, [e.target.name ] : e.target.value})} type="password" placeholder="Password..." required />
         <input type="submit" />
+        <div className="login_links">
+          <Link className="link" to="/register" >Create account</Link>
+          <Link className="link" to="/forget-password" >Forget password</Link>
+        </div>
       </form>
     </div>
   );

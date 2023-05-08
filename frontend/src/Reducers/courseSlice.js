@@ -26,11 +26,9 @@ export const courseEnroll = createAsyncThunk("course/courseEnroll",async(id,{rej
                 authorization : `Bearer ${localStorage.getItem('codictionToken')}`,
             }
         })
-
         return res.data;
     } catch (error) {
-
-        rejectWithValue(error?.response?.data?.message);
+        return rejectWithValue(error?.response?.data?.message);
     }
 })
 
@@ -90,7 +88,6 @@ const courseSlice = createSlice({
                 toast.success(action.payload.message,toastDesign);
             })
             .addCase(courseEnroll.rejected,(state ,action)=>{
-
                 state.isLoading = false;
                 state.isError = true;
                 state.data = [];

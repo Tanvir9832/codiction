@@ -11,14 +11,17 @@ import CreatePost from "./AdminDeshBoard/pages/CreatePost/CreatePost";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userOnload } from "./Reducers/userSlice";
 import SingleCourse from "./components/singleCourse/SingleCourse";
+import PageNotFoundPage from "./pages/PageNotFoundPage/PageNotFoundPage";
+
 
 
 
 function App() {
   const dispatch = useDispatch();
+  const {isAdmin , isLogin } = useSelector(state=>state.users);
   useEffect(()=>{
     if(localStorage.getItem("codictionToken")){
       dispatch(userOnload());
@@ -29,12 +32,13 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={isLogin ? <PageNotFoundPage /> :<Login />} />
+        <Route path="/register" element={isLogin ? <PageNotFoundPage /> : <Register />} />
         <Route path="/course" element={<Course />} /> 
-        <Route path="/dashboard" element={<AdminPage />}/>
-        <Route path="/create-post" element={<CreatePost />}/>
+        <Route path="/dashboard" element={isAdmin ? <AdminPage /> :  <PageNotFoundPage />}/>
+        <Route path="/create-post" element={isAdmin ?  <CreatePost /> : <PageNotFoundPage /> }/>
         <Route path="/single/course/:id" element={<SingleCourse />} />
+        <Route path="*" element={<PageNotFoundPage />} />
       </Routes>
       <ToastContainer />
     </BrowserRouter>

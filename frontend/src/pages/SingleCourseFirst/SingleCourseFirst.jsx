@@ -3,6 +3,7 @@ import { useDispatch, useSelector} from "react-redux";
 import "./SingleCourseFirst.css"
 import { useEffect, useState } from "react";
 import { courseEnroll } from "../../Reducers/courseSlice";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -27,12 +28,24 @@ const userEnrolled = data?.course?.userEnrolled;
 
 
 const dispatch = useDispatch();
+const navigate = useNavigate();
+
+// const isOk = useSelector(state=>state.course.isError);
 
 
-const handleEnrolledFunction =()=>{
-  dispatch(courseEnroll(id));
-  setIsEnrolled(true);
+const handleEnrolledFunction =async()=>{
+  const ans = await dispatch(courseEnroll(id));
+
+    if(ans?.payload?.success){
+      setIsEnrolled(true);
+    }else{
+      navigate('/login');
+    }
+
+
 }
+
+
 
 useEffect(()=>{
   userEnrolled && userEnrolled.forEach((id)=>{
@@ -66,7 +79,7 @@ if(isError){
             }
         </h3>
         <div>
-        <button disabled={isEnrolled} onClick={handleEnrolledFunction} className="singlecourse_btn">{
+        <button disabled={isEnrolled} onClick={handleEnrolledFunction} style={isEnrolled ? {background : 'green' ,color : 'black'} : null} className="singlecourse_btn">{
           isEnrolled ? "Enrolled" : "Enroll now"
         } </button>
         </div>
