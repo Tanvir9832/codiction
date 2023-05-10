@@ -61,10 +61,6 @@
     }
 }
 @media (max-width : 666px) {
-    .Navbar_logo{
-        max-width :70px;
-        height: auto;
-    }
     .link{
         font-size: small;
 
@@ -72,4 +68,62 @@
     .logOut_button{
         font-size: small;
     }
+}
+
+@media (max-width : 900px) {
+    .navbar_first_inside{
+        display: none;
+    }
+    .navbar_second{
+        display: none;
+    }
+    .navbar_inside{
+        display: flex;
+        justify-content: space-between;
+    }
+    
+}
+
+.menu{
+    width: 100%;
+    height: 0vh;
+    background-color: rgba(0, 26, 53 ,1);
+    position: fixed;
+    z-index: 1;
+    transition :all 1s ease;
+    display: none;
+
+}
+.menuUpdated{
+    margin-top: -10px;
+    width: 100%;
+    height: 15vh;
+    background-color: rgba(0, 26, 53 ,1);
+    position: fixed;
+    z-index: 1;
+    transition :all 0.5s ease;
+    display: block;
+
+}
+
+.Alllinks{
+    padding: 15px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.newLogin{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+@media (min-width : 900px) {
+    .icon{
+        display: none;
+    }
+
 }
