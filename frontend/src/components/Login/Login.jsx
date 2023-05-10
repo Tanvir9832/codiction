@@ -1,5 +1,5 @@
 import "./login.css";
-import logo from "../../../public/Logo.png";
+import logo from "../../../assets/Logo.png";
 import { useState } from "react";
 import {useDispatch} from "react-redux";
 import { userLogin } from "../../Reducers/userSlice";

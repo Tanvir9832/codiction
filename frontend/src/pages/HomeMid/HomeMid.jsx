@@ -1,7 +1,7 @@
 import "./HomeMid.css";
-import img1 from "../../../public/imgs/img1.png";
-import img2 from "../../../public/imgs/img2.png";
-import img3 from "../../../public/imgs/img3.png";
+import img1 from "../../../assets/imgs/img1.png";
+import img2 from "../../../assets/imgs/img2.png";
+import img3 from "../../../assets/imgs/img3.png";
 
 const HomeMid = () => {
   return (

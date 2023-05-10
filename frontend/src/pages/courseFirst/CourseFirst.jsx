@@ -1,4 +1,4 @@
-import course from "../../../public/imgs/course.png"
+import course from "../../../assets/imgs/course.png"
 import "./CourseFirst.css"
 const CourseFirst = () => {
   return (

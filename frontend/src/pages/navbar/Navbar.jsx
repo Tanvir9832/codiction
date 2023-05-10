@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import "./navbar.css";
 
-import logo from "../../../public/Logo.png";
+import logo from "../../../assets/Logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { userOnload } from "../../Reducers/userSlice";
 import FormatIndentDecreaseSharpIcon from "@mui/icons-material/FormatIndentDecreaseSharp";

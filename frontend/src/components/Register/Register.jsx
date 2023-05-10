@@ -1,5 +1,5 @@
 import "./register.css";
-import logo from "../../../public/Logo.png";
+import logo from "../../../assets/Logo.png";
 import { useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { userResister } from "../../Reducers/userSlice";

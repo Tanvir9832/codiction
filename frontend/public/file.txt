@@ -1,3 +1,0 @@
-import slider1 from "../../../public/sliderImg/Slide1.PNG"
-import slider2 from "../../../public/sliderImg/Slide2.PNG"
-import slider3 from "../../../public/sliderImg/Slide2.PNG"
