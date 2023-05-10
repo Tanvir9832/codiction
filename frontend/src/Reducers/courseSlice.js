@@ -5,7 +5,7 @@ import {toastDesign} from "./userSlice";
 
 export const coursePost = createAsyncThunk("course/coursePost",async(data,{rejectWithValue})=>{
     try {
-        const res = await axios.post("api/v2/course/create",data,{
+        const res = await axios.post("/api/v2/course/create",data,{
             headers :{
                 authorization : `Bearer ${localStorage.getItem('codictionToken')}`,
             }
@@ -21,7 +21,7 @@ export const coursePost = createAsyncThunk("course/coursePost",async(data,{rejec
 
 export const courseEnroll = createAsyncThunk("course/courseEnroll",async(id,{rejectWithValue})=>{
     try {
-        const res = await axios.get(`api/v1/course/registration/${id}`, {
+        const res = await axios.get(`/api/v1/course/registration/${id}`, {
             headers :{
                 authorization : `Bearer ${localStorage.getItem('codictionToken')}`,
             }

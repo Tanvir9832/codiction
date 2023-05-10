@@ -5,7 +5,7 @@ export const allCourseGet = createAsyncThunk(
   "getCourses/allCourseGet",
   async ( _ , { rejectWithValue }) => {
     try {
-        const res = await axios.get("api/v2/course/getAllCourses");
+        const res = await axios.get("/api/v2/course/getAllCourses");
 
         return res.data;
     } catch (error) {
@@ -17,7 +17,7 @@ export const allCourseGet = createAsyncThunk(
 
 export const getSingleCourse = createAsyncThunk("getCourses/getSingleCourse" ,async(id,rejectWithValue)=>{
   try {
-    const res = await axios.get(`api/v2/course/getOneCourse/${id}`);
+    const res = await axios.get(`/api/v2/course/getOneCourse/${id}`);
 
     return res?.data;
   } catch (error) {

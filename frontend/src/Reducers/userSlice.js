@@ -20,7 +20,7 @@ export const userResister = createAsyncThunk("users/userRegister",async(data ,{r
     if(data.password.length < 8){
         return rejectWithValue("Password must be at least 8 characters");
     }
-    const res = await axios.post("api/v1/register",data);
+    const res = await axios.post("/api/v1/register",data);
     return res.data;
    } catch (error) {
     return rejectWithValue(error?.response?.data?.message);
@@ -32,7 +32,7 @@ export const userResister = createAsyncThunk("users/userRegister",async(data ,{r
 //!  Login Action Handler
 export const userLogin = createAsyncThunk("users/userLogin",async(data ,{rejectWithValue})=>{
     try {
-        const res = await axios.post("api/v1/login",data);
+        const res = await axios.post("/api/v1/login",data);
         return res.data;
     } catch (error) {
         return rejectWithValue(error?.response?.data?.message);
@@ -43,7 +43,7 @@ export const userLogin = createAsyncThunk("users/userLogin",async(data ,{rejectW
 //! Onload Action Handler
 export const userOnload = createAsyncThunk("users/userOnload",async(_,{rejectWithValue})=>{
     try {
-        const res = await axios.get("api/v1/checkout",{
+        const res = await axios.get("/api/v1/checkout",{
             headers : {
                 authorization : `Bearer ${localStorage.getItem("codictionToken")}`
             }

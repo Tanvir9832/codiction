@@ -17,7 +17,6 @@ const myData = useSelector(state=>state.users);
 
 
 
-
 //?Declaring Variables
 const courseImage = data?.course?.courseImage?.url;
 const coursePrice = data?.course?.coursePrice;

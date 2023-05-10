@@ -7,7 +7,7 @@ export const allInactiveCourseGet = createAsyncThunk(
     "getInactiveCourse/allInactiveCourseGet",
     async ( _ , { rejectWithValue }) => {
       try {
-          const res = await axios.get("api/v2/course/getInactiveCourse");
+          const res = await axios.get("/api/v2/course/getInactiveCourse");
           res.data.data.reverse();
           return res?.data;
       } catch (error) {

@@ -1,12 +1,12 @@
 import {createSlice ,  createAsyncThunk} from '@reduxjs/toolkit';
-import axios from '../services/axios';
+import axios from 'axios';
 
 
 export const allActiveCourseGet = createAsyncThunk(
     "getActiveCourse/allActiveCourseGet",
     async ( _ , { rejectWithValue }) => {
       try {
-          const res = await axios.get("api/v2/course/getActiveCourses");
+          const res = await axios.get("/api/v2/course/getActiveCourses");
           res.data.data.reverse();
           return res.data;
       } catch (error) {

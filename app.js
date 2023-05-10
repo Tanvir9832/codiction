@@ -29,9 +29,9 @@ app.use("/api/v1", userRouter);
 app.use("/api/v2", courseRouter);
 app.use("/api/v3", adminRouter);
 
-app.get("/", (req, res) => {
-  res.send("HELLO");
-});
+// app.get("/", (req, res) => {
+//   res.send("HELLO");
+// });
 
 
 //! cloudinary configuration
@@ -44,6 +44,7 @@ cloudinary.config({
 })
 
 
+
 app.use(express.static(path.join(__dirname, "./frontend/dist")));
 
 app.get("*", (req, res) => {
@@ -52,6 +53,7 @@ app.get("*", (req, res) => {
       res.status(500).send(err);
     };
 });
+
 
 
 //! app Listen Functions
